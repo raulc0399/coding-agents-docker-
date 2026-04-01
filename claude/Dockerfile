@@ -9,10 +9,10 @@ RUN curl -fsSL https://claude.ai/install.sh | bash
 ARG UID=1000
 ARG GID=1000
 
-RUN groupadd -g ${GID} agent 2>/dev/null || true \
-    && useradd -u ${UID} -g ${GID} -m -s /bin/bash agent 2>/dev/null || true
+RUN getent group ${GID} >/dev/null 2>&1 || groupadd -g ${GID} agent \
+    && getent passwd ${UID} >/dev/null 2>&1 || useradd -u ${UID} -g ${GID} -m -s /bin/bash agent
 
-USER agent
+USER ${UID}
 WORKDIR /workspace
 
 ENTRYPOINT ["claude"]
