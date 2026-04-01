@@ -13,8 +13,8 @@ env_null_mounts "${HOST_WORKDIR}" ENV_MOUNTS
 
 # Agent instructions mount
 AGENT_MD_MOUNT=()
-if [ -n "${AGENT_MD_PATH:-}" ] && [ -f "${AGENT_MD_PATH}" ]; then
-  AGENT_MD_MOUNT=("-v" "${AGENT_MD_PATH}:/home/agent/.copilot/copilot-instructions.md:ro")
+if [ -n "${AGENTS_MD_PATH:-}" ] && [ -f "${AGENTS_MD_PATH}" ]; then
+  AGENT_MD_MOUNT=("-v" "${AGENTS_MD_PATH}:/home/agent/.copilot/copilot-instructions.md:ro")
 fi
 
 export HOST_UID="$(id -u)"

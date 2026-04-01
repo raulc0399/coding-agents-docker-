@@ -48,7 +48,7 @@ The current working directory is automatically mounted as `/workspace` inside th
 You can provide a Markdown file with custom instructions for the agent:
 
 ```bash
-AGENT_MD_PATH=/path/to/instructions.md d_claude
+AGENTS_MD_PATH=/path/to/instructions.md d_claude
 ```
 
 ## Security
