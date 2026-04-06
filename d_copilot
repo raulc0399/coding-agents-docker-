@@ -6,6 +6,8 @@ source "${SCRIPT_DIR}/lib/env_mounts.sh"
 
 COMPOSE_FILE="${SCRIPT_DIR}/copilot/docker-compose.yml"
 HOST_WORKDIR="$(pwd)"
+PROJECT_NAME="$(basename "${HOST_WORKDIR}")"
+CONTAINER_WORKDIR="/workspace/${PROJECT_NAME}"
 
 # Build /dev/null overlay mounts for secret files
 ENV_MOUNTS=()
@@ -18,6 +20,7 @@ agent_instructions_args "${HOST_WORKDIR}" "/home/agent/.copilot/copilot-instruct
 export HOST_UID="$(id -u)"
 export HOST_GID="$(id -g)"
 export HOST_WORKDIR
+export CONTAINER_WORKDIR
 
 docker compose -f "${COMPOSE_FILE}" run --rm --name d-copilot \
   "${ENV_MOUNTS[@]+"${ENV_MOUNTS[@]}"}" \

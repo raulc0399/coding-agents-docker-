@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Populates the provided array with -v /dev/null:/workspace/<file>:ro flags for secret files found in $1
+# Populates the provided array with -v /dev/null:<container-workdir>/<file>:ro flags for secret files found in $1
 
 env_null_mounts() {
   local src_dir="$1"
   local -n mounts_ref="$2"
+  local container_workdir="${CONTAINER_WORKDIR:-/workspace}"
   local file
   local rel
 
@@ -11,7 +12,7 @@ env_null_mounts() {
 
   while IFS= read -r -d '' file; do
     rel="${file#"$src_dir"/}"
-    mounts_ref+=("-v" "/dev/null:/workspace/${rel}:ro")
+    mounts_ref+=("-v" "/dev/null:${container_workdir}/${rel}:ro")
   done < <(
     find "$src_dir" -type f \
       \( \
@@ -36,7 +37,7 @@ env_null_mounts() {
   if [[ -f "$nullmounts_file" ]]; then
     while IFS= read -r line || [[ -n "$line" ]]; do
       [[ -z "$line" || "$line" == \#* ]] && continue
-      mounts_ref+=("-v" "/dev/null:/workspace/${line}:ro")
+      mounts_ref+=("-v" "/dev/null:${container_workdir}/${line}:ro")
     done < "$nullmounts_file"
   fi
 }

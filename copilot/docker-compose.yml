@@ -7,7 +7,7 @@ services:
         GID: ${HOST_GID:-1000}
     image: d_copilot
     volumes:
-      - ${HOST_WORKDIR}:/workspace
-    working_dir: /workspace
+      - ${HOST_WORKDIR}:${CONTAINER_WORKDIR}
+    working_dir: ${CONTAINER_WORKDIR}
     stdin_open: true
     tty: true
