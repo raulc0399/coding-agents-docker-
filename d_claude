@@ -10,6 +10,8 @@ HOST_WORKDIR="$(pwd)"
 # Build /dev/null overlay mounts for secret files
 ENV_MOUNTS=()
 env_null_mounts "${HOST_WORKDIR}" ENV_MOUNTS
+CONFIG_MOUNT=()
+agent_config_mount_args "${HOME}/.claude" "/home/agent/.claude" CONFIG_MOUNT
 AGENT_ARGS=()
 agent_instructions_args "${HOST_WORKDIR}" "/home/agent/.claude/CLAUDE.md" AGENT_ARGS
 
@@ -19,5 +21,6 @@ export HOST_WORKDIR
 
 docker compose -f "${COMPOSE_FILE}" run --rm --name d-claude \
   "${ENV_MOUNTS[@]+"${ENV_MOUNTS[@]}"}" \
+  "${CONFIG_MOUNT[@]+"${CONFIG_MOUNT[@]}"}" \
   "${AGENT_ARGS[@]+"${AGENT_ARGS[@]}"}" \
   claude

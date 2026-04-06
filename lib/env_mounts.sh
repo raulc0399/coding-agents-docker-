@@ -58,6 +58,21 @@ agent_instructions_args() {
   args_ref+=("-v" "${resolved_host_path}:${container_path}:ro")
 }
 
+agent_config_mount_args() {
+  local host_dir="$1"
+  local container_dir="$2"
+  local -n args_ref="$3"
+
+  args_ref=()
+
+  if [[ "$host_dir" == ~* ]]; then
+    host_dir="${HOME}${host_dir#"~"}"
+  fi
+
+  mkdir -p "$host_dir"
+  args_ref+=("-v" "${host_dir}:${container_dir}")
+}
+
 resolve_agent_instructions_path() {
   local src_dir="$1"
   local -n path_ref="$2"
