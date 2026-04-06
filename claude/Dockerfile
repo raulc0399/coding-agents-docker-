@@ -15,6 +15,7 @@ ENV HOME=/home/agent
 ENV PATH=/home/agent/.local/bin:$PATH
 WORKDIR /workspace
 
-RUN curl -fsSL https://claude.ai/install.sh | bash
+RUN mkdir -p "${HOME}/.claude" \
+    && curl -fsSL https://claude.ai/install.sh | bash
 
 ENTRYPOINT ["bash", "-lc", "claude"]

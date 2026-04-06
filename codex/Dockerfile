@@ -15,7 +15,8 @@ ENV HOME=/home/agent
 ENV PATH=/home/agent/.local/bin:$PATH
 WORKDIR /workspace
 
-RUN npm config set prefix "${HOME}/.local" \
+RUN mkdir -p "${HOME}/.codex" \
+    && npm config set prefix "${HOME}/.local" \
     && npm install -g @openai/codex
 
 ENTRYPOINT ["bash", "-lc", "codex"]
