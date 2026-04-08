@@ -8,6 +8,7 @@ services:
     image: d_claude
     environment:
       CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING: "1"
+      COLORTERM: truecolor
     volumes:
       - ${HOST_WORKDIR}:${CONTAINER_WORKDIR}
     working_dir: ${CONTAINER_WORKDIR}
