@@ -8,6 +8,7 @@ services:
     image: d_codex
     environment:
       COLORTERM: truecolor
+      TZ: ${TZ:-Europe/Berlin}
     volumes:
       - ${HOST_WORKDIR}:${CONTAINER_WORKDIR}
     working_dir: ${CONTAINER_WORKDIR}
