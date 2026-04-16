@@ -1,7 +1,9 @@
 FROM node:20-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl ca-certificates ripgrep jq
+    git curl ca-certificates ripgrep jq less unzip make \
+    php-cli composer \
+    python3 python3-pip python3-venv
 
 ARG UID=1000
 ARG GID=1000
@@ -16,6 +18,8 @@ ENV PATH=/home/agent/.local/bin:$PATH
 WORKDIR /workspace
 
 RUN mkdir -p "${HOME}/.claude" \
+    && npm config set prefix "${HOME}/.local" \
+    && npm install -g typescript tsx \
     && curl -fsSL https://claude.ai/install.sh | bash
 
 ENTRYPOINT ["bash", "-lc", "claude"]
