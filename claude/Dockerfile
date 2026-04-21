@@ -20,7 +20,8 @@ WORKDIR /workspace
 RUN mkdir -p "${HOME}/.claude" \
     && npm config set prefix "${HOME}/.local" \
     && npm install -g typescript tsx \
-    && python3 -m pip install --user ruff \
+    && curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && uv tool install ruff@latest \
     && curl -fsSL https://claude.ai/install.sh | bash
 
 ENTRYPOINT ["bash", "-lc", "claude"]
