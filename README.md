@@ -67,6 +67,14 @@ The file is mounted read-only into the global instructions location each agent e
 - Codex: `~/.codex/AGENTS.md`
 - Copilot: `~/.copilot/copilot-instructions.md`
 
+the following aliases can be added:
+
+```bash
+alias claude_session='AGENTS_MD_PATH=~/<path to agents file>/AGENTS.md d_claude'
+alias codex_session='AGENTS_MD_PATH=~/<path to agents file>/AGENTS.md d_codex'
+alias copilot_session='AGENTS_MD_PATH=~/<path to agents file>/AGENTS.md d_copilot'
+```
+
 ## Security
 
 - Agents run as a non-root user inside the container.
@@ -78,3 +86,18 @@ The file is mounted read-only into the global instructions location each agent e
   config/api_keys.yml
   ```
 - Containers are removed after each run (`--rm`).
+
+### Statusline customisation
+
+```bash
+cp claude/statusline-command.sh ~/.claude/
+```
+
+in the local ~/.claude/settings.json add
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "bash /home/agent/.claude/statusline-command.sh"
+},
+```
