@@ -1,7 +1,7 @@
 FROM node:20-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl ca-certificates ripgrep jq less unzip make \
+    git curl ca-certificates ripgrep jq less unzip make poppler-utils \
     php-cli composer \
     python3 python3-pip python3-venv
 
@@ -23,4 +23,4 @@ RUN mkdir -p "${HOME}/.codex" \
     && curl -LsSf https://astral.sh/uv/install.sh | sh \
     && uv tool install ruff@latest
 
-ENTRYPOINT ["bash", "-lc", "codex"]
+ENTRYPOINT ["bash", "-lc", "codex --dangerously-bypass-approvals-and-sandbox"]
